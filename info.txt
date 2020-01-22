@@ -1,0 +1,36 @@
+系统调用 SYSENTER SYSEXIT
+64位系统调用：
+	 * 64-bit SYSCALL saves rip to rcx, clears rflags.RF, then saves rflags to r11,
+	 * then loads new ss, cs, and rip from previously programmed MSRs.
+	 * rflags gets masked by a value from another MSR (so CLD and CLAC
+	 * are not needed). SYSCALL does not save anything on the stack
+	 * and does not change rsp.
+	 *
+	 * Registers on entry:
+	 * rax  system call number
+	 * rcx  return address
+	 * r11  saved rflags (note: r11 is callee-clobbered register in C ABI)
+	 * rdi  arg0
+	 * rsi  arg1
+	 * rdx  arg2
+	 * r10  arg3 (needs to be moved to rcx to conform to C ABI)
+	 * r8   arg4
+	 * r9   arg5
+	 * (note: r12-r15, rbp, rbx are callee-preserved in C ABI)
+32位系统调用：
+	* Arguments:
+	 * eax  system call number
+	 * ebx  arg1
+	 * ecx  arg2
+	 * edx  arg3
+	 * esi  arg4
+	 * edi  arg5
+	 * ebp  user stack
+	 * 0(%ebp) arg6
+	
+Linux c函数调用参照c 约定，%rax保存结果地址。
+X86 cdecl方式，这是C/C++语言的默认处理方式。cdecl告诉编译器，参数要从右向左压栈，并且调用者负责恢复堆栈
+X86-64 linux与系统调用一致。利用%xmm0-%xmm7来传，超过压栈。同时对于可变列表函数用%eax表示其中的浮点数，最多8个
+
+
+windows对x86-64函数调用方式很大不同。可以找ddk查看
