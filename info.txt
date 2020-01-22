@@ -25,7 +25,7 @@
 	 * edx  arg3
 	 * esi  arg4
 	 * edi  arg5
-	 * ebp  user stack
+	 * ebp  user stack 
 	 * 0(%ebp) arg6
 	
 Linux c函数调用参照c 约定，%rax保存结果地址。
