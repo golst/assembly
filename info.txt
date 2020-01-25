@@ -34,3 +34,7 @@ X86-64 linux与系统调用一致。利用%xmm0-%xmm7来传，超过压栈。同
 
 
 windows对x86-64函数调用方式很大不同。可以找ddk查看
+
+在x86-64编译32位代码:
+ as --32
+ ld -m elf_i386 -I /lib32//lib32/ld-linux.so.2 -L /lib32 -lc
