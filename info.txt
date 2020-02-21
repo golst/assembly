@@ -43,3 +43,9 @@ windows对x86-64函数调用方式很大不同。可以找ddk查看
 
  linux 内核动态加载elf文件
   fs/binfmt_elf.c
+
+  linux 地址布局随机化 aslr
+
+  关闭 echo 0 | sudo tee /proc/sys/kernel/randomize_va_space
+
+  编译软件 关闭栈保护 NX gcc -fno-stack-protector -z execstack
