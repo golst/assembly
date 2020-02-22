@@ -48,4 +48,19 @@ windows对x86-64函数调用方式很大不同。可以找ddk查看
 
   关闭 echo 0 | sudo tee /proc/sys/kernel/randomize_va_space
 
-  编译软件 关闭栈保护 NX gcc -fno-stack-protector -z execstack
+  编译软件 关闭栈保护 NX(不可执行) gcc -fno-stack-protector -z execstack
+  
+  常用的指令：
+	xchg 交换寄存器之间， 寄存器与内存之间的数据
+	stc 设置carrying 位为1
+	寄存器rcx 循环计数 loop
+	算数位移：
+		sal 向左移位
+		sar 向右移位
+	逻辑位移：
+		shl 
+		shr: 向右移位时，填充0
+
+	循环位移：
+		ror rol
+
