@@ -2,23 +2,24 @@
 .file "hello.s"
 
 .section .data
-HELLO:
-    .string "hello world\n"
-    .equ LENGTH, . - HELLO
-le:
-    .int . - HELLO
-one:
-    .int 1
-.global _start
 
 .section .text
+.global _start
 
 _start:
-    mov $1, %rax
-    mov $1, %rdi
-    mov $HELLO, %rsi
-    mov $LENGTH, %rdx
+    jmp code 
+ HELLO:
+    .ascii "hello world\n"
+ code:
+    mov $1, %al
+    xor %rdi, %rdi 
+    add $1, %rdi
+    lea HELLO(%rip), %rsi
+    xor %rdx,%rdx
+    add $12, %rdx
     syscall
-    mov $60, %rax
-    mov one(,1), %rdi
+    xor %rax,%rax
+    add $60,%rax
+    xor %rdi,%rdi
+    add $1, %rdi
     syscall

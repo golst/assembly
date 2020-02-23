@@ -64,3 +64,16 @@ windows对x86-64函数调用方式很大不同。可以找ddk查看
 	循环位移：
 		ror rol
 
+生成shellcode:
+	1、objdump -D -M att ./hello | grep '[0-9a-f]:'| grep -v "file" 
+		| cut -f2 -d: |cut -f1-7 -d ' ' | tr -s ' ' | tr '\t' ' ' | sed 's/$//g' | sed 's/ /\\\x/g' | paste -d '' -s
+
+	2、去除shellcode中的坏字符：
+		常见的坏字符:
+			00 表示0或终止符\0
+			0A 表示行结束 \n 
+			FF 表示表结束 \f 
+			0D 表示换行 \r
+		通过减小操作数（如 rax al） 利用算法指令避免多出0 
+		对于字符串，可利用相对地址,将数据存在.text便于查找
+		 
